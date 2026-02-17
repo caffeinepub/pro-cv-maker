@@ -1,73 +1,41 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T03:21:22.778Z",
-  "summary": "Most core features for authentication gating, CV builder UI with live preview, photo upload/preview, and print/export are present. However, backend persistence does not cover all CV sections collected in the form, and the backend fetch API returns an optional value rather than an explicit empty/default CV state. Several additional access-control/admin/profile features were added beyond the request.",
+  "generatedAt": "2026-02-17T03:29:11.685Z",
+  "summary": "CV preview markup was refactored to a more structured, resume-like layout using new CV-specific classnames and icons; global CSS was extended with a large set of CV preview component styles and some print-related hints. However, the diff does not clearly show complete print-specific rules for page margins/chrome removal, and it includes some changes that go beyond the requested CV preview/print refresh (notably global theme token changes and CV load behavior details).",
   "missing_requirements": [
     {
-      "id": "REQ-2",
-      "requirement": "If a user has no saved CV yet, the fetch method returns an empty/default state without errors.",
-      "reason": "Backend `getCV()` returns `async ?CVData` and simply returns `cvDataMap.get(caller)` (i.e., null when missing) rather than returning a default/empty CV object.",
+      "id": "REQ-8",
+      "requirement": "Refine print-specific styling for the CV preview so the modern design renders consistently when printing (clean margins/full-page fill, high-contrast, reduced awkward page breaks, no app chrome).",
+      "reason": "The diff shows some print-related classes (e.g., `print:shadow-none`, `print:border-0`) and `page-break-inside: avoid` on sections, but no explicit, verifiable `@media print` rules or margin/page-fill controls are visible in the provided truncated excerpts to confirm the full acceptance criteria (margins/page fill/chrome suppression/page-break rules).",
       "evidence": [
-        "backend/main.mo (public query func getCV() : async ?CVData { ... cvDataMap.get(caller); })"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "Persist each user’s CV data (covering the builder’s collected sections) keyed by the authenticated user principal, with APIs to create/update and fetch the saved CV.",
-      "reason": "The frontend form collects `summary`, `projects`, and `certifications`, but the backend `CVData` type does not include these fields, and the save path in `CVBuilderPage` only serializes/saves name/email/phone/workExperience/education/skills/photo (dropping summary/projects/certifications). This means those sections are not persisted per user.",
-      "evidence": [
-        "backend/main.mo (public type CVData = { name; email; phone; workExperience; education; skills; photo; })",
-        "frontend/src/pages/CVBuilderPage.tsx (CVFormData includes summary/projects/certifications; handleSave serializes only name/email/phone/workExperience/education/skills/photo)"
+        "frontend/src/components/cv/CVPreview.tsx (Card uses `print:shadow-none print:border-0`)",
+        "frontend/src/index.css (`.cv-section { page-break-inside: avoid; }` shown; print-specific rules not visible in excerpt)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile management (get/save caller profile) and forced first-time Profile Setup modal flow.",
-      "reason": "BuildRequest only asked for Internet Identity login + CV builder; it did not request separate user profiles or a profile setup modal.",
+      "description": "Global theme token overhaul in `index.css` (OKLCH variables for `:root`/`.dark`, chart colors, etc.) beyond CV preview/print refresh scope.",
+      "reason": "BuildRequest focuses on modernizing the CV preview template and print styling; it does not request changing global design tokens/theme variables application-wide.",
       "evidence": [
-        "backend/main.mo (UserProfile type; getCallerUserProfile/getUserProfile/saveCallerUserProfile)",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/hooks/useUserProfile.ts",
-        "frontend/src/App.tsx (showProfileSetup && <ProfileSetupModal />)"
+        "frontend/src/index.css (`:root` and `.dark` large variable changes shown)"
       ]
     },
     {
-      "description": "Admin/access-control initialization using a secret token in URL parameters and admin-only API to fetch all CVs.",
-      "reason": "BuildRequest did not request admin roles, secret URL tokens, or an API to fetch all users’ CVs (and non-goals emphasize no multi-user collaboration).",
+      "description": "CV load/deserialization sets `summary` to an empty string (and initializes projects/certifications empty) even when loading saved CV, potentially altering existing load behavior.",
+      "reason": "BuildRequest explicitly lists as non-goals: changing save/load behavior; this change is not part of styling/preview refresh and could affect what appears in the live preview after loading.",
       "evidence": [
-        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken'); actor._initializeAccessControlWithSecret(adminToken))",
-        "frontend/src/utils/urlParams.ts",
-        "backend/main.mo (public query func getAllCVs() : async [CVData])",
-        "backend/main.mo (imports/include authorization/*; AccessControl checks for #admin)"
+        "frontend/src/pages/CVBuilderPage.tsx (in `setFormData`: `summary: ''`, `projects: []`, `certifications: []`)"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.62,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/auth/AuthStatus.tsx",
-    "frontend/src/components/auth/ProfileSetupModal.tsx",
-    "frontend/src/components/cv/CVForm.tsx",
     "frontend/src/components/cv/CVPreview.tsx",
-    "frontend/src/components/cv/PhotoUploader.tsx",
-    "frontend/src/components/cv/RepeatableListEditor.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useCVData.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useUserProfile.ts",
     "frontend/src/index.css",
-    "frontend/src/main.tsx",
     "frontend/src/pages/CVBuilderPage.tsx",
-    "frontend/src/pages/LoginPage.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

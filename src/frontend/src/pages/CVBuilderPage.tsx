@@ -154,7 +154,7 @@ export default function CVBuilderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background cv-builder-page">
       {/* Header */}
       <header className="border-b bg-card print:hidden sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
@@ -190,15 +190,15 @@ export default function CVBuilderPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+      <main className="container mx-auto px-4 py-8 cv-builder-main">
+        <div className="grid lg:grid-cols-2 gap-8 cv-builder-grid">
           {/* Form Section */}
           <div className="print:hidden">
             <CVForm formData={formData} setFormData={setFormData} />
           </div>
 
           {/* Preview Section */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="lg:sticky lg:top-24 lg:self-start cv-preview-container">
             <CVPreview formData={formData} />
           </div>
         </div>

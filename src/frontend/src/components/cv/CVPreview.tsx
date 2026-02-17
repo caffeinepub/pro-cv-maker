@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Phone, Briefcase, GraduationCap, Code, Award } from 'lucide-react';
+import { Mail, Phone, Briefcase, GraduationCap, Code, Award, FolderGit2 } from 'lucide-react';
 import type { CVFormData } from '../../pages/CVBuilderPage';
 
 interface CVPreviewProps {
@@ -12,178 +12,181 @@ export default function CVPreview({ formData }: CVPreviewProps) {
   const photoUrl = formData.photo?.getDirectURL();
 
   return (
-    <Card className="cv-preview bg-white text-black print:shadow-none print:border-0">
-      <div className="p-8 space-y-6">
-        {/* Header */}
-        <div className="flex items-start gap-6">
-          {photoUrl && (
-            <div className="flex-shrink-0">
-              <img
-                src={photoUrl}
-                alt={formData.name || 'Profile'}
-                className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
-              />
-            </div>
-          )}
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {formData.name || 'Your Name'}
-            </h1>
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-              {formData.email && (
-                <div className="flex items-center gap-1">
-                  <Mail className="h-4 w-4" />
-                  <span>{formData.email}</span>
+    <Card className="cv-preview bg-white text-black print:shadow-none print:border-0 overflow-hidden">
+      <div className="cv-content">
+        {/* Header Section */}
+        <div className="cv-header">
+          <div className="flex items-start gap-8">
+            {photoUrl && (
+              <div className="flex-shrink-0">
+                <div className="cv-photo-frame">
+                  <img
+                    src={photoUrl}
+                    alt={formData.name || 'Profile'}
+                    className="cv-photo"
+                  />
                 </div>
-              )}
-              {formData.phone && (
-                <div className="flex items-center gap-1">
-                  <Phone className="h-4 w-4" />
-                  <span>{formData.phone}</span>
-                </div>
-              )}
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <h1 className="cv-name">
+                {formData.name || 'Your Name'}
+              </h1>
+              <div className="cv-contact-info">
+                {formData.email && (
+                  <div className="cv-contact-item">
+                    <Mail className="cv-contact-icon" />
+                    <span>{formData.email}</span>
+                  </div>
+                )}
+                {formData.phone && (
+                  <div className="cv-contact-item">
+                    <Phone className="cv-contact-icon" />
+                    <span>{formData.phone}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Professional Summary */}
         {formData.summary && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">Professional Summary</h2>
-              <p className="text-gray-700 leading-relaxed">{formData.summary}</p>
+          <div className="cv-section">
+            <div className="cv-section-header-simple">
+              <h2 className="cv-section-title">Professional Summary</h2>
             </div>
-          </>
+            <p className="cv-summary-text">{formData.summary}</p>
+          </div>
         )}
 
         {/* Work Experience */}
         {formData.workExperience.length > 0 && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Briefcase className="h-5 w-5 text-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-900">Work Experience</h2>
-              </div>
-              <div className="space-y-4">
-                {formData.workExperience.map((exp) => (
-                  <div key={exp.id} className="space-y-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-semibold text-gray-900">{exp.title}</h3>
-                      <span className="text-sm text-gray-600">{exp.period}</span>
-                    </div>
-                    <p className="text-gray-700 font-medium">{exp.company}</p>
-                    {exp.description && (
-                      <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
-                        {exp.description}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+          <div className="cv-section">
+            <div className="cv-section-header">
+              <Briefcase className="cv-section-icon" />
+              <h2 className="cv-section-title">Work Experience</h2>
             </div>
-          </>
+            <div className="cv-entries">
+              {formData.workExperience.map((exp, index) => (
+                <div key={exp.id} className="cv-entry">
+                  <div className="cv-entry-header">
+                    <div className="cv-entry-main">
+                      <h3 className="cv-entry-title">{exp.title}</h3>
+                      <p className="cv-entry-subtitle">{exp.company}</p>
+                    </div>
+                    <span className="cv-entry-period">{exp.period}</span>
+                  </div>
+                  {exp.description && (
+                    <p className="cv-entry-description">{exp.description}</p>
+                  )}
+                  {index < formData.workExperience.length - 1 && (
+                    <div className="cv-entry-divider" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Education */}
         {formData.education.length > 0 && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <GraduationCap className="h-5 w-5 text-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-900">Education</h2>
-              </div>
-              <div className="space-y-4">
-                {formData.education.map((edu) => (
-                  <div key={edu.id} className="space-y-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
-                      <span className="text-sm text-gray-600">{edu.period}</span>
-                    </div>
-                    <p className="text-gray-700 font-medium">{edu.institution}</p>
-                    {edu.description && (
-                      <p className="text-gray-600 text-sm leading-relaxed">{edu.description}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+          <div className="cv-section">
+            <div className="cv-section-header">
+              <GraduationCap className="cv-section-icon" />
+              <h2 className="cv-section-title">Education</h2>
             </div>
-          </>
+            <div className="cv-entries">
+              {formData.education.map((edu, index) => (
+                <div key={edu.id} className="cv-entry">
+                  <div className="cv-entry-header">
+                    <div className="cv-entry-main">
+                      <h3 className="cv-entry-title">{edu.degree}</h3>
+                      <p className="cv-entry-subtitle">{edu.institution}</p>
+                    </div>
+                    <span className="cv-entry-period">{edu.period}</span>
+                  </div>
+                  {edu.description && (
+                    <p className="cv-entry-description">{edu.description}</p>
+                  )}
+                  {index < formData.education.length - 1 && (
+                    <div className="cv-entry-divider" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Skills */}
         {formData.skills.length > 0 && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Code className="h-5 w-5 text-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-900">Skills</h2>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {formData.skills.map((skill) => (
-                  <Badge
-                    key={skill}
-                    variant="secondary"
-                    className="bg-gray-200 text-gray-800 hover:bg-gray-200"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
+          <div className="cv-section">
+            <div className="cv-section-header">
+              <Code className="cv-section-icon" />
+              <h2 className="cv-section-title">Skills</h2>
             </div>
-          </>
+            <div className="cv-skills-grid">
+              {formData.skills.map((skill) => (
+                <span key={skill} className="cv-skill-pill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Projects */}
         {formData.projects.length > 0 && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Projects</h2>
-              <div className="space-y-4">
-                {formData.projects.map((project) => (
-                  <div key={project.id} className="space-y-1">
-                    <h3 className="font-semibold text-gray-900">{project.name}</h3>
-                    {project.description && (
-                      <p className="text-gray-600 text-sm leading-relaxed">{project.description}</p>
-                    )}
-                    {project.technologies && (
-                      <p className="text-gray-500 text-sm">
-                        <span className="font-medium">Technologies:</span> {project.technologies}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+          <div className="cv-section">
+            <div className="cv-section-header">
+              <FolderGit2 className="cv-section-icon" />
+              <h2 className="cv-section-title">Projects</h2>
             </div>
-          </>
+            <div className="cv-entries">
+              {formData.projects.map((project, index) => (
+                <div key={project.id} className="cv-entry">
+                  <h3 className="cv-entry-title">{project.name}</h3>
+                  {project.description && (
+                    <p className="cv-entry-description">{project.description}</p>
+                  )}
+                  {project.technologies && (
+                    <p className="cv-project-tech">
+                      <span className="font-semibold">Technologies:</span> {project.technologies}
+                    </p>
+                  )}
+                  {index < formData.projects.length - 1 && (
+                    <div className="cv-entry-divider" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Certifications */}
         {formData.certifications.length > 0 && (
-          <>
-            <Separator className="bg-gray-300" />
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="h-5 w-5 text-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-900">Certifications & Awards</h2>
-              </div>
-              <div className="space-y-3">
-                {formData.certifications.map((cert) => (
-                  <div key={cert.id} className="space-y-1">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-semibold text-gray-900">{cert.name}</h3>
-                      <span className="text-sm text-gray-600">{cert.date}</span>
-                    </div>
-                    <p className="text-gray-700 text-sm">{cert.issuer}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="cv-section">
+            <div className="cv-section-header">
+              <Award className="cv-section-icon" />
+              <h2 className="cv-section-title">Certifications & Awards</h2>
             </div>
-          </>
+            <div className="cv-entries">
+              {formData.certifications.map((cert, index) => (
+                <div key={cert.id} className="cv-entry">
+                  <div className="cv-entry-header">
+                    <div className="cv-entry-main">
+                      <h3 className="cv-entry-title">{cert.name}</h3>
+                      <p className="cv-entry-subtitle">{cert.issuer}</p>
+                    </div>
+                    <span className="cv-entry-period">{cert.date}</span>
+                  </div>
+                  {index < formData.certifications.length - 1 && (
+                    <div className="cv-entry-divider" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </Card>

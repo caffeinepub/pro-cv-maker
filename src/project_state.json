@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 5,
   "summary": "Build a web-based professional CV maker where users can log in, enter detailed information across necessary sections, upload a photo, and instantly generate a polished CV.",
   "architectural_notes": [],
   "known_issues": [],
@@ -45,6 +45,22 @@
         "REQ-6"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-redesign-the-cv-preview-template-to-look-more-professional-and-modern-while-keeping-all-existing-cv-fields-and-real-time-updates-intact",
+      "title": "Redesign the CV preview template to look more professional and modern while keeping all existing CV fields and real-time updates intact.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refine-print-specific-styling-for-the-cv-preview-so-the-new-modern-design-renders-consistently-when-users-click-print-save-as-pdf",
+      "title": "Refine print-specific styling for the CV preview so the new modern design renders consistently when users click “Print / Save as PDF”.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -84,6 +100,12 @@
       "reqIds": [
         "REQ-2"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Improve the generated CV design to be more professional and modern (refine the preview/template styling and layout)",
+      "reqIds": [],
       "status": "pending"
     }
   ],

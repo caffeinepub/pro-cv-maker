@@ -1,15 +1,15 @@
 {
   "frontend/src/App.tsx": "Main application component that handles authentication state, shows login page for unauthenticated users, CV builder for authenticated users, and manages profile setup modal flow.",
   "frontend/src/pages/LoginPage.tsx": "Dedicated login page with Internet Identity authentication, featuring a hero section, feature highlights, and secure sign-in flow.",
-  "frontend/src/pages/CVBuilderPage.tsx": "Main CV builder page with split layout showing form editor on left and live preview on right, includes save and print functionality with CV data persistence.",
+  "frontend/src/pages/CVBuilderPage.tsx": "Main CV builder page with split layout showing form editor and live preview, includes save and print functionality with CV data persistence and additional CSS classes for print optimization.",
   "frontend/src/components/auth/AuthStatus.tsx": "User authentication status indicator displayed in header with dropdown menu showing user profile name and sign-out option.",
   "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time users to set up their profile name, prevents dismissal until profile is created.",
   "frontend/src/components/cv/CVForm.tsx": "Comprehensive CV form component with sections for personal details, photo upload, summary, work experience, education, skills, projects, and certifications.",
   "frontend/src/components/cv/RepeatableListEditor.tsx": "Reusable component for managing repeatable form sections (work experience, education, projects, certifications) with add/remove functionality.",
   "frontend/src/components/cv/PhotoUploader.tsx": "Photo upload component with preview, progress tracking, file validation, and integration with ExternalBlob storage system.",
-  "frontend/src/components/cv/CVPreview.tsx": "Professional CV preview template that renders form data in a clean, print-ready layout with proper typography and spacing.",
+  "frontend/src/components/cv/CVPreview.tsx": "Modern professional CV preview component with improved typography hierarchy, refined spacing, bold section headers with icons, clean entry layouts with proper alignment, and polished skill pills optimized for both screen and print.",
   "frontend/src/hooks/useUserProfile.ts": "React Query hooks for fetching and saving user profile data with proper loading states to prevent modal flash.",
   "frontend/src/hooks/useCVData.ts": "React Query hooks for CV data operations including fetch, save, and clear with automatic cache invalidation.",
-  "frontend/src/index.css": "Global styles with OKLCH-based neutral color system (avoiding blue/purple), custom print styles for clean PDF export, and typography settings.",
+  "frontend/src/index.css": "Global styles with OKLCH color system and comprehensive CV-specific component classes defined in @layer components for modern professional layout (header, sections, entries, skills) with enhanced print styles ensuring clean PDF export with proper page breaks and high-contrast legibility using standard CSS properties instead of non-existent Tailwind utilities.",
   "frontend/tailwind.config.js": "Tailwind configuration with extended theme including neutral color palette, Inter font family, custom shadows, and responsive design tokens."
 }

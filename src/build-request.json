@@ -1,129 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Professional CV Builder with Login, Photo, and Instant CV Generation",
+  "title": "Modernize and professionalize the CV preview design",
   "projectName": "Pro CV Maker",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Add authentication using Internet Identity and create a dedicated Login page that lets users sign in and sign out.",
+      "id": "REQ-7",
+      "text": "Redesign the CV preview template to look more professional and modern while keeping all existing CV fields and real-time updates intact.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "Add nesessery section and login page.."
+          "Bhai make the cv design more professional and modern"
         ]
       },
       "acceptanceCriteria": [
-        "A Login page exists with a clear sign-in and sign-out flow using Internet Identity.",
-        "When signed out, the user is prompted to sign in before accessing the CV builder.",
-        "When signed in, the UI shows the authenticated state (e.g., user indicator + sign-out)."
+        "The CV preview (frontend/src/components/cv/CVPreview.tsx) uses a more modern, resume-like layout (improved typography hierarchy, spacing, alignment, and section styling) without removing any existing sections/fields currently shown.",
+        "The header area (name, photo, contact details) looks visually balanced and professional (e.g., cleaner alignment, consistent icon sizing, refined photo framing).",
+        "Section headers and dividers look modern (e.g., subtle separators, consistent section spacing) and remain readable when printed.",
+        "Skills rendering looks more polished than the current gray badges (e.g., refined pill style, spacing, wrapping) while remaining print-friendly.",
+        "All preview content remains black-on-white or otherwise highly legible and continues to print/export cleanly via the existing browser print flow."
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Persist each user’s CV data in the Motoko backend keyed by the authenticated user principal, with APIs to create/update, fetch, and clear/reset the saved CV.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Make website of making cv with proper details and photo."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend exposes methods to save CV data for the caller, fetch the caller’s saved CV data, and clear/reset the caller’s CV data.",
-        "Data is isolated per user principal (one user cannot read/overwrite another user’s CV).",
-        "If a user has no saved CV yet, the fetch method returns an empty/default state without errors."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Create a CV Builder page with a structured form that collects professional CV details across necessary sections, including at minimum: Personal Details, Professional Summary, Work Experience, Education, Skills, Projects, and Certifications/Awards (as optional).",
+      "id": "REQ-8",
+      "text": "Refine print-specific styling for the CV preview so the new modern design renders consistently when users click “Print / Save as PDF”.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "Add nesessery section",
-          "cv should be profesional."
+          "make the cv design more professional and modern"
         ]
       },
       "acceptanceCriteria": [
-        "The CV Builder form includes distinct sections with appropriate fields and supports multiple entries where relevant (e.g., multiple jobs, multiple education items, multiple projects).",
-        "Form validation prevents obviously incomplete core data (at minimum: name + at least one contact method).",
-        "All user-facing labels, helper text, and placeholders are in English."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement a photo upload feature in the CV Builder that allows the user to add a profile photo and include it in the generated CV output.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Make website of making cv with proper details and photo."
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can upload an image file (common formats such as PNG/JPG) and see a preview in the builder.",
-        "The uploaded photo is saved with the user’s CV data and is restored on reload after fetching saved CV data.",
-        "The generated CV view displays the photo in a professional placement (e.g., header/side column) without breaking layout."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Provide an instant CV generation experience: as the user fills the form, show a professional CV preview template that updates immediately, and provide a way to export/print the CV from the browser.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "instant cv maker ..cv should be profesional."
-        ]
-      },
-      "acceptanceCriteria": [
-        "A CV preview is available and reflects current form values without requiring a manual ‘generate’ step.",
-        "The CV uses a clean, professional layout with consistent typography and spacing.",
-        "A clear action exists to export/print (e.g., ‘Print / Save as PDF’) that produces a print-friendly output."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add a coherent visual theme for the app (colors, typography, spacing, component styling) that feels professional and is applied consistently across Login, Builder, and Preview screens (avoid a blue/purple default palette).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "cv should be profesional."
-        ]
-      },
-      "acceptanceCriteria": [
-        "The app uses a consistent, professional visual style across all pages.",
-        "The chosen palette is not primarily blue/purple unless explicitly required by the user (not required here).",
-        "Layout is responsive and usable on both mobile and desktop."
+        "Print output does not show app chrome (form/header/footer already hidden) and the CV preview fills the page cleanly with consistent margins and spacing.",
+        "No new background colors/effects reduce legibility in print; text remains crisp and high-contrast.",
+        "The updated preview avoids awkward page breaks where possible (headings and grouped blocks do not separate in unnatural ways)."
       ]
     }
   ],
   "constraints": [
-    "Use only the platform-supported stack: Motoko single-actor backend and React + TypeScript + Tailwind + React Query frontend.",
-    "Do not edit frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose these components instead).",
-    "No external databases or third-party authentication providers; Internet Identity only."
+    "Do not modify any files under frontend/src/components/ui (Shadcn components must be composed, not edited).",
+    "Do not edit frontend immutable paths listed in SYSTEM_CONTEXT (e.g., auth hooks and bootstrap files).",
+    "Do not change backend canister APIs or persisted CV data format as part of this design refresh."
   ],
   "nonGoals": [
-    "Multi-user collaboration on the same CV document.",
-    "External cloud storage for uploaded photos or CV files.",
-    "Integration with third-party resume templates/marketplaces or external job boards.",
-    "Email/SMS notifications or real-time chat/support."
+    "Adding new CV sections/fields or changing the CV data model/serialization.",
+    "Changing authentication, save/load behavior, or the print/export mechanism beyond styling improvements.",
+    "Introducing new third-party UI libraries beyond what is already in the project."
   ],
   "imageRequirements": {
     "required": [],
