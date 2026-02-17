@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a web-based professional CV maker where users can log in, enter detailed information across necessary sections, upload a photo, and instantly generate a polished CV.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-add-authentication-using-internet-identity-and-create-a-dedicated-login-page-that-lets-users-sign-in-and-sign-out",
+      "title": "Add authentication using Internet Identity and create a dedicated Login page that lets users sign in and sign out.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-cv-builder-page-with-a-structured-form-that-collects-professional-cv-details-across-necessary-sections-including-at-minimum-personal-details-professional-summary-work-experience-education-skills-projects-and-certifications-awards-as-optional",
+      "title": "Create a CV Builder page with a structured form that collects professional CV details across necessary sections, including at minimum: Personal Details, Professional Summary, Work Experience, Education, Skills, Projects, and Certifications/Awards (as optional).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-photo-upload-feature-in-the-cv-builder-that-allows-the-user-to-add-a-profile-photo-and-include-it-in-the-generated-cv-output",
+      "title": "Implement a photo upload feature in the CV Builder that allows the user to add a profile photo and include it in the generated CV output.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-an-instant-cv-generation-experience-as-the-user-fills-the-form-show-a-professional-cv-preview-template-that-updates-immediately-and-provide-a-way-to-export-print-the-cv-from-the-browser",
+      "title": "Provide an instant CV generation experience: as the user fills the form, show a professional CV preview template that updates immediately, and provide a way to export/print the CV from the browser.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-coherent-visual-theme-for-the-app-colors-typography-spacing-component-styling-that-feels-professional-and-is-applied-consistently-across-login-builder-and-preview-screens-avoid-a-blue-purple-default-palette",
+      "title": "Add a coherent visual theme for the app (colors, typography, spacing, component styling) that feels professional and is applied consistently across Login, Builder, and Preview screens (avoid a blue/purple default palette).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User authentication with login page for the CV builder website",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "CV form with necessary sections for proper details (e.g., personal info, education, experience, skills, projects)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Photo upload and inclusion in the generated CV",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Instant CV generation from entered data (professional CV output)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Provide a professional CV layout/template for the generated CV",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Persist each user’s CV data in the Motoko backend keyed by the authenticated user principal, with APIs to create/update, fetch, and clear/reset the saved CV.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Pro CV Maker",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

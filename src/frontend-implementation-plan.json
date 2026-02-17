@@ -1,0 +1,157 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Pro CV Maker — Frontend (Auth, CV Builder, Photo, Live Preview, Print, Theme)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Internet Identity authentication with a dedicated Login page, signed-in indicator, and guard CV Builder access when signed out.",
+      "acceptanceCriteria": [
+        "A Login page exists with a clear sign-in and sign-out flow using Internet Identity.",
+        "When signed out, the user is prompted to sign in before accessing the CV builder.",
+        "When signed in, the UI shows the authenticated state (e.g., user indicator + sign-out)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell that wires navigation between a dedicated Login page and the CV Builder experience, enforcing an auth guard using the immutable useInternetIdentity hook (signed out users see Login; signed in users can access Builder/Preview)."
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "create",
+          "description": "Implement a dedicated Login page using Internet Identity via the immutable useInternetIdentity hook, including a clear sign-in and sign-out flow and a brief explanation of why login is required."
+        },
+        {
+          "path": "frontend/src/components/auth/AuthStatus.tsx",
+          "operation": "create",
+          "description": "Create an authenticated-state indicator (showing friendly user info and sign-out action) for the app header; use backend user profile name instead of showing principal directly. Use the selected authorization component guidance for auth UX; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup modal to collect the user's display name and persist it via backend user profile calls (getCallerUserProfile/saveCallerUserProfile). Use the selected authorization component guidance to avoid modal flash and to clear cached data on logout; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to fetch/save the current user's profile (getCallerUserProfile/saveCallerUserProfile) and to expose loading states suitable for gating the profile setup modal. Use the selected authorization component guidance for query enablement; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a professional CV Builder page with structured sections, repeatable entries, and basic validation in English.",
+      "acceptanceCriteria": [
+        "The CV Builder form includes distinct sections with appropriate fields and supports multiple entries where relevant (e.g., multiple jobs, multiple education items, multiple projects).",
+        "Form validation prevents obviously incomplete core data (at minimum: name + at least one contact method).",
+        "All user-facing labels, helper text, and placeholders are in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CVBuilderPage.tsx",
+          "operation": "create",
+          "description": "Create the CV Builder page containing structured sections (Personal Details, Professional Summary, Work Experience, Education, Skills, Projects, Certifications/Awards optional) with repeatable item UIs and English labels/placeholders. Ensure required validation for name + at least one contact method."
+        },
+        {
+          "path": "frontend/src/components/cv/CVForm.tsx",
+          "operation": "create",
+          "description": "Implement the structured CV form component used by the Builder page, including section layout, dynamic add/remove for multi-entry sections, and validation state surfaced to the UI."
+        },
+        {
+          "path": "frontend/src/components/cv/RepeatableListEditor.tsx",
+          "operation": "create",
+          "description": "Create a reusable editor for repeatable sections (e.g., jobs, education items, projects, certifications) to keep the form consistent and professional."
+        },
+        {
+          "path": "frontend/src/lib/cv/serialize.ts",
+          "operation": "create",
+          "description": "Add serialization helpers to map the Builder's structured state into the backend-compatible CVData shape (e.g., flatten multi-field entries into readable strings where needed) and back where possible."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add profile photo upload with preview and ensure the photo appears in the generated CV preview.",
+      "acceptanceCriteria": [
+        "User can upload an image file (common formats such as PNG/JPG) and see a preview in the builder.",
+        "The uploaded photo is saved with the user’s CV data and is restored on reload after fetching saved CV data.",
+        "The generated CV view displays the photo in a professional placement (e.g., header/side column) without breaking layout."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/cv/PhotoUploader.tsx",
+          "operation": "create",
+          "description": "Implement a photo upload UI that accepts common image formats, shows a preview, and produces an ExternalBlob for saving. Use the selected blob-storage component (ExternalBlob/fromBytes/getDirectURL/withUploadProgress) for handling images; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCVData.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for fetching/saving/clearing the current user's CV (getCV/saveCV/clearCV) and a mutation for photo handling consistent with backend capabilities. Use the selected blob-storage component type ExternalBlob for photo fields; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/cv/CVPreview.tsx",
+          "operation": "modify",
+          "description": "Ensure the CV preview template renders the profile photo in a professional placement (e.g., header avatar / side column) using the ExternalBlob direct URL when available. Use the selected blob-storage component guidance for display via getDirectURL; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CVBuilderPage.tsx",
+          "operation": "modify",
+          "description": "Wire PhotoUploader into the Builder page state and persistence flow so uploads update the live preview and are included when saving/fetching the user's CV."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Provide live CV preview that updates instantly and supports browser print/export to PDF with a print-friendly layout.",
+      "acceptanceCriteria": [
+        "A CV preview is available and reflects current form values without requiring a manual ‘generate’ step.",
+        "The CV uses a clean, professional layout with consistent typography and spacing.",
+        "A clear action exists to export/print (e.g., ‘Print / Save as PDF’) that produces a print-friendly output."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/cv/CVPreview.tsx",
+          "operation": "create",
+          "description": "Create a professional CV preview template component that renders from current Builder state and updates immediately as the user edits fields, with consistent typography and spacing."
+        },
+        {
+          "path": "frontend/src/pages/CVBuilderPage.tsx",
+          "operation": "modify",
+          "description": "Lay out the Builder as form + live preview (responsive: stacked on mobile, side-by-side on desktop) and add a clear Print / Save as PDF action that triggers browser print."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add print styles to ensure the preview exports cleanly (hide form/navigation during print, set page typography and spacing for print, and keep photo/layout stable)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a consistent professional visual theme (non-blue/purple primary palette) across Login, Builder, and Preview, with responsive layout.",
+      "acceptanceCriteria": [
+        "The app uses a consistent, professional visual style across all pages.",
+        "The chosen palette is not primarily blue/purple unless explicitly required by the user (not required here).",
+        "Layout is responsive and usable on both mobile and desktop."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define/adjust global design tokens (CSS variables used by Tailwind/shadcn) for a professional palette that is not primarily blue/purple (e.g., neutral + emerald/charcoal accents), and set base typography/spacing defaults."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure a consistent layout wrapper (header + content spacing) is applied across Login and Builder/Preview screens, and that responsive behavior is coherent on mobile and desktop."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme as needed for professional typography/spacing and ensure the design system aligns with the chosen non-blue/purple palette."
+        }
+      ]
+    }
+  ]
+}

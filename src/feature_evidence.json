@@ -1,0 +1,118 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-authentication-using-internet-identity-and-create-a-dedicated-login-page-that-lets-users-sign-in-and-sign-out",
+      "featureTitle": "Add authentication using Internet Identity and create a dedicated Login page that lets users sign in and sign out.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AuthStatus.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useUserProfile.ts",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-cv-builder-page-with-a-structured-form-that-collects-professional-cv-details-across-necessary-sections-including-at-minimum-personal-details-professional-summary-work-experience-education-skills-projects-and-certifications-awards-as-optional",
+      "featureTitle": "Create a CV Builder page with a structured form that collects professional CV details across necessary sections, including at minimum: Personal Details, Professional Summary, Work Experience, Education, Skills, Projects, and Certifications/Awards (as optional).",
+      "files": [
+        "frontend/src/components/cv/CVForm.tsx",
+        "frontend/src/components/cv/RepeatableListEditor.tsx",
+        "frontend/src/pages/CVBuilderPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-photo-upload-feature-in-the-cv-builder-that-allows-the-user-to-add-a-profile-photo-and-include-it-in-the-generated-cv-output",
+      "featureTitle": "Implement a photo upload feature in the CV Builder that allows the user to add a profile photo and include it in the generated CV output.",
+      "files": [
+        "frontend/src/components/cv/CVPreview.tsx",
+        "frontend/src/components/cv/PhotoUploader.tsx",
+        "frontend/src/hooks/useCVData.ts",
+        "frontend/src/pages/CVBuilderPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-an-instant-cv-generation-experience-as-the-user-fills-the-form-show-a-professional-cv-preview-template-that-updates-immediately-and-provide-a-way-to-export-print-the-cv-from-the-browser",
+      "featureTitle": "Provide an instant CV generation experience: as the user fills the form, show a professional CV preview template that updates immediately, and provide a way to export/print the CV from the browser.",
+      "files": [
+        "frontend/src/components/cv/CVPreview.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/CVBuilderPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-coherent-visual-theme-for-the-app-colors-typography-spacing-component-styling-that-feels-professional-and-is-applied-consistently-across-login-builder-and-preview-screens-avoid-a-blue-purple-default-palette",
+      "featureTitle": "Add a coherent visual theme for the app (colors, typography, spacing, component styling) that feels professional and is applied consistently across Login, Builder, and Preview screens (avoid a blue/purple default palette).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

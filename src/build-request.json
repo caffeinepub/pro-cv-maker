@@ -1,0 +1,132 @@
+{
+  "kind": "build_request",
+  "title": "Professional CV Builder with Login, Photo, and Instant CV Generation",
+  "projectName": "Pro CV Maker",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add authentication using Internet Identity and create a dedicated Login page that lets users sign in and sign out.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add nesessery section and login page.."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A Login page exists with a clear sign-in and sign-out flow using Internet Identity.",
+        "When signed out, the user is prompted to sign in before accessing the CV builder.",
+        "When signed in, the UI shows the authenticated state (e.g., user indicator + sign-out)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Persist each user’s CV data in the Motoko backend keyed by the authenticated user principal, with APIs to create/update, fetch, and clear/reset the saved CV.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Make website of making cv with proper details and photo."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to save CV data for the caller, fetch the caller’s saved CV data, and clear/reset the caller’s CV data.",
+        "Data is isolated per user principal (one user cannot read/overwrite another user’s CV).",
+        "If a user has no saved CV yet, the fetch method returns an empty/default state without errors."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create a CV Builder page with a structured form that collects professional CV details across necessary sections, including at minimum: Personal Details, Professional Summary, Work Experience, Education, Skills, Projects, and Certifications/Awards (as optional).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add nesessery section",
+          "cv should be profesional."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The CV Builder form includes distinct sections with appropriate fields and supports multiple entries where relevant (e.g., multiple jobs, multiple education items, multiple projects).",
+        "Form validation prevents obviously incomplete core data (at minimum: name + at least one contact method).",
+        "All user-facing labels, helper text, and placeholders are in English."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement a photo upload feature in the CV Builder that allows the user to add a profile photo and include it in the generated CV output.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Make website of making cv with proper details and photo."
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can upload an image file (common formats such as PNG/JPG) and see a preview in the builder.",
+        "The uploaded photo is saved with the user’s CV data and is restored on reload after fetching saved CV data.",
+        "The generated CV view displays the photo in a professional placement (e.g., header/side column) without breaking layout."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Provide an instant CV generation experience: as the user fills the form, show a professional CV preview template that updates immediately, and provide a way to export/print the CV from the browser.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "instant cv maker ..cv should be profesional."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A CV preview is available and reflects current form values without requiring a manual ‘generate’ step.",
+        "The CV uses a clean, professional layout with consistent typography and spacing.",
+        "A clear action exists to export/print (e.g., ‘Print / Save as PDF’) that produces a print-friendly output."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add a coherent visual theme for the app (colors, typography, spacing, component styling) that feels professional and is applied consistently across Login, Builder, and Preview screens (avoid a blue/purple default palette).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "cv should be profesional."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The app uses a consistent, professional visual style across all pages.",
+        "The chosen palette is not primarily blue/purple unless explicitly required by the user (not required here).",
+        "Layout is responsive and usable on both mobile and desktop."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use only the platform-supported stack: Motoko single-actor backend and React + TypeScript + Tailwind + React Query frontend.",
+    "Do not edit frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose these components instead).",
+    "No external databases or third-party authentication providers; Internet Identity only."
+  ],
+  "nonGoals": [
+    "Multi-user collaboration on the same CV document.",
+    "External cloud storage for uploaded photos or CV files.",
+    "Integration with third-party resume templates/marketplaces or external job boards.",
+    "Email/SMS notifications or real-time chat/support."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
